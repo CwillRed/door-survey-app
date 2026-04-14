@@ -8,6 +8,12 @@ type PhotoManagerProps = {
   additionalLabel: string;
 };
 
+const mobileCameraInputProps = {
+  type: 'file' as const,
+  accept: 'image/*',
+  capture: 'environment' as const,
+};
+
 function buildPhotoItems(files: FileList | null): PhotoItem[] {
   if (!files) {
     return [];
@@ -107,7 +113,11 @@ export function PhotoManager({
                 </span>
               </div>
               <span className="photo-upload__button">Upload Photo</span>
-              <input type="file" accept="image/*" multiple onChange={(event) => handleRequiredUpload(slot.id, event)} />
+              <input
+                {...mobileCameraInputProps}
+                multiple
+                onChange={(event) => handleRequiredUpload(slot.id, event)}
+              />
             </label>
           );
         })}
@@ -140,7 +150,11 @@ export function PhotoManager({
             </span>
           </div>
           <span className="photo-upload__button">Add Photos</span>
-          <input type="file" accept="image/*" multiple onChange={handleAdditionalUpload} />
+          <input
+            {...mobileCameraInputProps}
+            multiple
+            onChange={handleAdditionalUpload}
+          />
         </label>
       </div>
     </div>
